@@ -25,5 +25,6 @@ public class Main {
 		int[] dsc = sorter.descending(a);
 		System.out.println("dsc: " + Arrays.toString(dsc));
 
+		scanner.close();
 	}
 }
