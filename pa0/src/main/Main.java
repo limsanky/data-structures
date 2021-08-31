@@ -21,6 +21,9 @@ public class Main {
 
 		System.out.println("a: " + Arrays.toString(a));
 		int[] asc = sorter.ascending(a);
-		System.out.println("asc: " + Arrays.toString(a));
+		System.out.println("asc: " + Arrays.toString(asc));
+		int[] dsc = sorter.descending(a);
+		System.out.println("dsc: " + Arrays.toString(dsc));
+
 	}
 }
