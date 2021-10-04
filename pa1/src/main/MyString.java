@@ -217,7 +217,18 @@ public final class MyString implements IString{
          * Job:
          *  Return the whole string.
          */
-        return new char[]{};
+
+        if(isEmpty()) return new char[0];
+
+        char[] returnArray = new char[size];
+        IListNode current = head.next();
+
+        for(int i = 0; i < size; i++){
+            returnArray[i] = current.value();
+            current = current.next();
+        }
+
+        return returnArray;
     }
 
     @Override
@@ -229,6 +240,6 @@ public final class MyString implements IString{
          * Job:
          *  Return the size(length) of the string.
          */
-        return 0;
+        return size;
     }
 }
