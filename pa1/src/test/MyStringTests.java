@@ -11,6 +11,35 @@ import testrunner.annotation.Score;
 import java.util.Arrays;
 
 public class MyStringTests {
+
+    @Test
+    @Score(1)
+    void customTest1() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s = new MyString();
+            assertThat(s.print(), is(new char[] { }));
+            assertThat(s.size(), is(0));
+            s.append('i');
+            assertThat(s.size(), is(1));
+            s.prepend('h');
+            assertThat(s.size(), is(2));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTest2() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s = new MyString();
+            assertThat(s.print(), is(new char[] { }));
+            assertThat(s.size(), is(0));
+            s.prepend('h');
+            assertThat(s.size(), is(1));
+            s.append('i');
+            assertThat(s.size(), is(2));
+        });
+    }
+
     @Test
     @Score(1)
     void testCreation() {
