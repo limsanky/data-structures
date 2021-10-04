@@ -27,6 +27,14 @@ public final class MyString implements IString{
         tail.setPrev(head);
     }
 
+    /**
+     * Returns whether this list is empty or not.
+     * @return Boolean
+     */
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
     @Override
     public void append(char x) {
         /*
