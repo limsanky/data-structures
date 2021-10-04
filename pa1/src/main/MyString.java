@@ -104,7 +104,7 @@ public final class MyString implements IString{
          */
         if(isEmpty()) return null;
 
-        return head;
+        return head.next();
     }
 
     @Override
@@ -118,7 +118,7 @@ public final class MyString implements IString{
          */
         if(isEmpty()) return null;
 
-        return tail;
+        return tail.prev();
     }
 
     @Override
