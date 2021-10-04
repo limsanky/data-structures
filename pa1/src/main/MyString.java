@@ -40,7 +40,7 @@ public final class MyString implements IString{
         /*
          * Function input:
          *  + x: A character to be appended
-         * 
+         *
          * Job:
          *  Insert the character to the end of the linked list.
          */
@@ -73,6 +73,24 @@ public final class MyString implements IString{
          * Job:
          *  Insert the character to the start of the linked list.
          */
+
+        ListNode newNode = new ListNode(x);
+
+        if(isEmpty()){
+            head.setNext(newNode);
+            tail.setPrev(newNode);
+
+            newNode.setNext(tail);
+            newNode.setPrev(head);
+        } else {
+            head.next().setPrev(newNode);
+            newNode.setNext(head.next());
+
+            newNode.setPrev(head);
+            head.setNext(newNode);
+        }
+
+        size++;
     }
 
     @Override
