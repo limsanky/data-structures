@@ -133,7 +133,7 @@ public final class MyString implements IString{
          */
         if(isEmpty()) return -1;
 
-        IListNode current = head;
+        IListNode current = head.next();
         int index = 0;
 
         while(current != tail) {
@@ -159,7 +159,7 @@ public final class MyString implements IString{
          */
         if(isEmpty()) return -1;
 
-        IListNode current = tail;
+        IListNode current = tail.prev();
         int index = size - 1;
 
         while(current != head){
