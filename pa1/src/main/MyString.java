@@ -131,6 +131,19 @@ public final class MyString implements IString{
          *  Return the smallest index which you can find x.
          *  If x is not in the string, return -1.
          */
+        if(isEmpty()) return -1;
+
+        IListNode current = head;
+        int index = 0;
+
+        while(current != tail) {
+            if (current.value() != x) {
+                index++;
+                current = current.next();
+            } else return index;
+        }
+
+        // Did not find element x
         return -1;
     }
 
