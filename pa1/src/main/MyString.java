@@ -157,6 +157,19 @@ public final class MyString implements IString{
          *  Return the largest index which you can find x.
          *  If x is not in the string, return -1.
          */
+        if(isEmpty()) return -1;
+
+        IListNode current = tail;
+        int index = size - 1;
+
+        while(current != head){
+            if (current.value() != x) {
+                index--;
+                current = current.prev();
+            } else return index;
+        }
+
+        // Did not find element x
         return -1;
     }
 
