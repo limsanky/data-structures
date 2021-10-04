@@ -196,7 +196,7 @@ public final class MyString implements IString{
         else smallestLength = s.size();
 
         IListNode currentThis = head.next();
-        IListNode currentS = s.head().next();
+        IListNode currentS = s.head();
 
         for(int i = 0; i < smallestLength; i++) {
             if (currentS.value() >= currentThis.value()) {
