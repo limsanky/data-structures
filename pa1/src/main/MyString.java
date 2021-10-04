@@ -14,11 +14,17 @@ public final class MyString implements IString{
      * Add some variables you will use.
      */
 
+    private final ListNode head, tail;
+    private int size = 0;
+
     public MyString() {
         /*
          * Constructor 
          * Create an empty String class
          */
+        head = tail = new ListNode();
+        head.setNext(tail);
+        tail.setPrev(head);
     }
 
     @Override
