@@ -42,6 +42,40 @@ public class MyStringTests {
 
     @Test
     @Score(1)
+    void customTest3() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s = new MyString();
+            s.append('h');
+            assertThat(s.head().value(), is('h'));
+            assertThat(s.size(), is(1));
+            s.append('i');
+            assertThat(s.tail().value(), is('i'));
+            assertThat(s.size(), is(2));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTest4() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s1 = new MyString();
+            IString s2 = new MyString();
+            s1.append('d');
+            s1.append('a');
+            s1.append('a');
+            s1.append('e');
+
+            s2.append('d');
+            s2.append('a');
+            s2.append('b');
+            s2.append('a');
+            s2.append('a');
+            assertThat(s1.lessOrEqual(s2),is(false));
+        });
+    }
+
+    @Test
+    @Score(1)
     void testCreation() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IString s = new MyString();
