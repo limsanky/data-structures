@@ -69,7 +69,7 @@ public final class MyString implements IString{
         /*
          * Function input:
          *  + x: A character to be prepended
-         * 
+         *
          * Job:
          *  Insert the character to the start of the linked list.
          */
@@ -98,11 +98,13 @@ public final class MyString implements IString{
         /*
          * Function input:
          *  None
-         * 
+         *
          * Job:
          *  Return the first node of the linked list. If empty, return null.
          */
-        return null;
+        if(isEmpty()) return null;
+
+        return head;
     }
 
     @Override
@@ -114,7 +116,9 @@ public final class MyString implements IString{
          * Job:
          *  Return the last node of the linked list. If empty, return null.
          */
-        return null;
+        if(isEmpty()) return null;
+
+        return tail;
     }
 
     @Override
