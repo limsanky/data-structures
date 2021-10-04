@@ -44,6 +44,24 @@ public final class MyString implements IString{
          * Job:
          *  Insert the character to the end of the linked list.
          */
+
+        ListNode newNode = new ListNode(x);
+
+        if(isEmpty()){
+            head.setNext(newNode);
+            tail.setPrev(newNode);
+
+            newNode.setNext(tail);
+            newNode.setPrev(head);
+        } else {
+            newNode.setPrev(tail.prev());
+            tail.prev().setNext(newNode);
+
+            newNode.setNext(tail);
+            tail.setPrev(newNode);
+        }
+
+        size++;
     }
 
     @Override
