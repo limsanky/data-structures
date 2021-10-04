@@ -182,7 +182,30 @@ public final class MyString implements IString{
          * Job:
          *  Return if this string is less or equal to s in lexicographical order.
          */
-        return false;
+
+        // If [this] is empty.
+        if(isEmpty()) return true;
+
+        // [this] is not empty, but [s] is empty.
+        if(s.size() == 0) return false;
+
+        // [this] & [s] are not empty.
+        int smallestLength;
+
+        if (s.size() >= size) smallestLength = size;
+        else smallestLength = s.size();
+
+        IListNode currentThis = head.next();
+        IListNode currentS = s.head().next();
+
+        for(int i = 0; i < smallestLength; i++) {
+            if (currentS.value() >= currentThis.value()) {
+                currentS = currentS.next();
+                currentThis = currentThis.next();
+            } else return false;
+        }
+
+        return true;
     }
 
     @Override
