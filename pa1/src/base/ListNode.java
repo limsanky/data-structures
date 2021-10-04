@@ -1,4 +1,4 @@
-public class ListNode {
+public class ListNode implements IListNode {
     private IListNode next, prev;
     private char value;
 

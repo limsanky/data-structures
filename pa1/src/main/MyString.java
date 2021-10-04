@@ -50,7 +50,7 @@ public final class MyString implements IString{
          *  None
          * 
          * Job:
-         *  Return the head of the linked list. If empty, return null.
+         *  Return the first node of the linked list. If empty, return null.
          */
         return null;
     }
@@ -62,7 +62,7 @@ public final class MyString implements IString{
          *  None
          * 
          * Job:
-         *  Return the tail of the linked list. If empty, return null.
+         *  Return the last node of the linked list. If empty, return null.
          */
         return null;
     }
