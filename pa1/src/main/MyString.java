@@ -35,6 +35,22 @@ public final class MyString implements IString{
         return size == 0;
     }
 
+    /**
+     * Adds first element to list.
+     * @param x - Character which is supposed to be the first element of the list.
+     */
+    private void addFirst(char x){
+        ListNode newNode = new ListNode(x);
+
+        head.setNext(newNode);
+        tail.setPrev(newNode);
+
+        newNode.setNext(tail);
+        newNode.setPrev(head);
+
+        size++;
+    }
+
     @Override
     public void append(char x) {
         /*
@@ -45,23 +61,21 @@ public final class MyString implements IString{
          *  Insert the character to the end of the linked list.
          */
 
-        ListNode newNode = new ListNode(x);
+        // Adds first element since list is empty.
+        if(isEmpty()) addFirst(x);
 
-        if(isEmpty()){
-            head.setNext(newNode);
-            tail.setPrev(newNode);
+        // Add element as the last element of the list.
+        else {
+            ListNode newNode = new ListNode(x);
 
-            newNode.setNext(tail);
-            newNode.setPrev(head);
-        } else {
             newNode.setPrev(tail.prev());
             tail.prev().setNext(newNode);
 
             newNode.setNext(tail);
             tail.setPrev(newNode);
-        }
 
-        size++;
+            size++;
+        }
     }
 
     @Override
@@ -74,23 +88,21 @@ public final class MyString implements IString{
          *  Insert the character to the start of the linked list.
          */
 
-        ListNode newNode = new ListNode(x);
+        // Adds first element since list is empty.
+        if(isEmpty()) addFirst(x);
 
-        if(isEmpty()){
-            head.setNext(newNode);
-            tail.setPrev(newNode);
+        // Add element as the first element of the list.
+        else {
+            ListNode newNode = new ListNode(x);
 
-            newNode.setNext(tail);
-            newNode.setPrev(head);
-        } else {
             head.next().setPrev(newNode);
             newNode.setNext(head.next());
 
             newNode.setPrev(head);
             head.setNext(newNode);
-        }
 
-        size++;
+            size++;
+        }
     }
 
     @Override
@@ -199,12 +211,14 @@ public final class MyString implements IString{
         IListNode currentS = s.head();
 
         for(int i = 0; i < smallestLength; i++) {
+            // Check if the value of [s] is >= that of [this]
             if (currentS.value() >= currentThis.value()) {
                 currentS = currentS.next();
                 currentThis = currentThis.next();
-            } else return false;
+            } else return false; // Return false if value of [s] is < than that of [this].
         }
 
+        // Return true, as all elements of [s] are >= those of [this].
         return true;
     }
 
