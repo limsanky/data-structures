@@ -10,7 +10,12 @@
  */
 
 public final class BoardSolver implements IBoardSolver {
-
+    /**
+     * References:
+     *      https://stackoverflow.com/questions/34469538/efficient-nonogram-solver
+     *      https://github.com/Samjayyy/logicpuzzles/blob/master/nonogram/MainV1.java
+     */
+    
     /*
     Required Variables
      */
