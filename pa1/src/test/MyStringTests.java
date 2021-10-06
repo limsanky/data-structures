@@ -8,8 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import testrunner.annotation.Score;
 
-import java.util.Arrays;
-
 public class MyStringTests {
 
     @Test
