@@ -8,8 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import testrunner.annotation.Score;
 
-import java.util.Arrays;
-
 public class MyStringTests {
 
     @Test
@@ -71,6 +69,29 @@ public class MyStringTests {
             s2.append('a');
             s2.append('a');
             assertThat(s1.lessOrEqual(s2),is(false));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTest5() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s = new MyString();
+
+            assertThat(s.findFirst('f'), is(-1));
+            assertThat(s.findLast('b'), is(-1));
+            s.append('3');
+            assertThat(s.findFirst('f'), is(-1));
+            assertThat(s.findLast('b'), is(-1));
+            assertThat(s.findFirst('3'), is(0));
+            assertThat(s.findLast('3'), is(0));
+            s.append('3');
+            s.append('a');
+            assertThat(s.findLast('3'), is(1));
+            s.append('3');
+            assertThat(s.findLast('3'), is(3));
+            s.append('a');
+            assertThat(s.findLast('a'), is(4));
         });
     }
 
