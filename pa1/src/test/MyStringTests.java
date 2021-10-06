@@ -76,6 +76,29 @@ public class MyStringTests {
 
     @Test
     @Score(1)
+    void customTest5() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IString s = new MyString();
+
+            assertThat(s.findFirst('f'), is(-1));
+            assertThat(s.findLast('b'), is(-1));
+            s.append('3');
+            assertThat(s.findFirst('f'), is(-1));
+            assertThat(s.findLast('b'), is(-1));
+            assertThat(s.findFirst('3'), is(0));
+            assertThat(s.findLast('3'), is(0));
+            s.append('3');
+            s.append('a');
+            assertThat(s.findLast('3'), is(1));
+            s.append('3');
+            assertThat(s.findLast('3'), is(3));
+            s.append('a');
+            assertThat(s.findLast('a'), is(4));
+        });
+    }
+
+    @Test
+    @Score(1)
     void testCreation() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IString s = new MyString();
