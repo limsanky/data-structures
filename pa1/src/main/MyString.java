@@ -11,23 +11,25 @@
 
 public final class MyString implements IString{
     /*
-     * Add some variables you will use.
+     * Required Variables
      */
-
     private final ListNode head, tail;
     private int size = 0;
 
+    /*
+     * Constructor
+     */
     public MyString() {
-        /*
-         * Constructor 
-         * Create an empty String class
-         */
         head = tail = new ListNode();
         head.setNext(tail);
         tail.setPrev(head);
     }
 
-    /**
+    /*
+     * Required Methods
+     */
+
+    /*
      * Returns whether this list is empty or not.
      * @return Boolean
      */
@@ -35,7 +37,7 @@ public final class MyString implements IString{
         return size == 0;
     }
 
-    /**
+    /*
      * Adds first element to list.
      * @param x - Character which is supposed to be the first element of the list.
      */
@@ -53,14 +55,6 @@ public final class MyString implements IString{
 
     @Override
     public void append(char x) {
-        /*
-         * Function input:
-         *  + x: A character to be appended
-         *
-         * Job:
-         *  Insert the character to the end of the linked list.
-         */
-
         // Adds first element since list is empty.
         if(isEmpty()) addFirst(x);
 
@@ -80,14 +74,6 @@ public final class MyString implements IString{
 
     @Override
     public void prepend(char x) {
-        /*
-         * Function input:
-         *  + x: A character to be prepended
-         *
-         * Job:
-         *  Insert the character to the start of the linked list.
-         */
-
         // Adds first element since list is empty.
         if(isEmpty()) addFirst(x);
 
@@ -107,13 +93,6 @@ public final class MyString implements IString{
 
     @Override
     public IListNode head() {
-        /*
-         * Function input:
-         *  None
-         *
-         * Job:
-         *  Return the first node of the linked list. If empty, return null.
-         */
         if(isEmpty()) return null;
 
         return head.next();
@@ -121,13 +100,6 @@ public final class MyString implements IString{
 
     @Override
     public IListNode tail() {
-        /*
-         * Function input:
-         *  None
-         * 
-         * Job:
-         *  Return the last node of the linked list. If empty, return null.
-         */
         if(isEmpty()) return null;
 
         return tail.prev();
@@ -135,14 +107,6 @@ public final class MyString implements IString{
 
     @Override
     public int findFirst(char x) {
-        /*
-         * Function input:
-         *  + x: A character to find
-         * 
-         * Job:
-         *  Return the smallest index which you can find x.
-         *  If x is not in the string, return -1.
-         */
         if(isEmpty()) return -1;
 
         IListNode current = head.next();
@@ -161,14 +125,6 @@ public final class MyString implements IString{
 
     @Override
     public int findLast(char x) {
-        /*
-         * Function input:
-         *  + x: A character to find
-         * 
-         * Job:
-         *  Return the largest index which you can find x.
-         *  If x is not in the string, return -1.
-         */
         if(isEmpty()) return -1;
 
         IListNode current = tail.prev();
@@ -187,14 +143,6 @@ public final class MyString implements IString{
 
     @Override
     public boolean lessOrEqual(IString s) {
-        /*
-         * Function input:
-         *  + s: String to compare to.
-         * 
-         * Job:
-         *  Return if this string is less or equal to s in lexicographical order.
-         */
-
         // If [this] is empty.
         if(isEmpty()) return true;
 
@@ -224,14 +172,6 @@ public final class MyString implements IString{
 
     @Override
     public char[] print() {
-        /*
-         * Function input:
-         *  None
-         * 
-         * Job:
-         *  Return the whole string.
-         */
-
         if(isEmpty()) return new char[0];
 
         char[] returnArray = new char[size];
@@ -247,13 +187,6 @@ public final class MyString implements IString{
 
     @Override
     public int size() {
-        /*
-         * Function input:
-         *  None
-         * 
-         * Job:
-         *  Return the size(length) of the string.
-         */
         return size;
     }
 }
