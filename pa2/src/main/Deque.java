@@ -116,32 +116,58 @@ public final class Deque<E> implements IDeque<E> {
         size++;
     }
 
+    /**
+     * Deletes the first element from the Deque
+     * @throws IllegalStateException if the Deque is empty
+     */
     @Override
     public void deleteFirst()
             throws IllegalStateException {
         /*
-        * Function input: Nothing
-        *
-        * Job:
-        *  Delete the first item of the deque.
-        *
-        *  If there is no item, raise an IllegalStateException.
-        *  You do not have to specify its message.
-        */
+         * Function input: Nothing
+         *
+         * Job:
+         *  Delete the first item of the deque.
+         *
+         *  If there is no item, raise an IllegalStateException.
+         *  You do not have to specify its message.
+         */
+
+        if(isEmpty()) throw new IllegalStateException();
+
+        // Severe connection
+        head.setNext(head.next().next());
+        head.next().setPrev(head);
+
+        // Reduce size by 1
+        size--;
     }
 
+    /**
+     * Deletes the last element from the Deque
+     * @throws IllegalStateException if the Deque is empty
+     */
     @Override
     public void deleteLast()
             throws IllegalStateException {
         /*
-        * Function input: Nothing
-        *
-        * Job:
-        *  Delete the last item of the deque.
-        *
-        *  If there is no item, raise an IllegalStateException.
-        *  You do not have to specify its message.
-        */
+         * Function input: Nothing
+         *
+         * Job:
+         *  Delete the last item of the deque.
+         *
+         *  If there is no item, raise an IllegalStateException.
+         *  You do not have to specify its message.
+         */
+
+        if(isEmpty()) throw new IllegalStateException();
+
+        // Severe connection
+        tail.prev().prev().setNext(tail);
+        tail.setPrev(tail.prev().prev());
+
+        // Reduce size by 1
+        size--;
     }
 
     @Override
