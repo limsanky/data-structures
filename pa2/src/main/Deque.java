@@ -170,45 +170,59 @@ public final class Deque<E> implements IDeque<E> {
         size--;
     }
 
+    /**
+     * This method returns the data held in the first node
+     * @return Data held in the first node
+     * @throws IllegalStateException if the Deque is empty
+     */
     @Override
     public E first()
             throws IllegalStateException {
         /*
-        * Function input: Nothing
-        *
-        * Job:
-        *  Return the first item.
-        *
-        *  If there is no item, raise an IllegalStateException.
-        *  You do not have to specify its message.
-        */
-        return null;
+         * Function input: Nothing
+         *
+         * Job:
+         *  Return the first item.
+         *
+         *  If there is no item, raise an IllegalStateException.
+         *  You do not have to specify its message.
+         */
+        if(isEmpty()) throw new IllegalStateException();
+
+        return (E) head.next().val();
     }
 
+    /**
+     * This method returns the data held in the last node
+     * @return Data held in the last node
+     * @throws IllegalStateException if the Deque is empty
+     */
     @Override
     public E last()
             throws IllegalStateException {
         /*
-        * Function input: Nothing
-        *
-        * Job:
-        *  Return the last item.
-        *
-        *  If there is no item, raise an IllegalStateException.
-        *  You do not have to specify its message.
-        */
-        return null;
+         * Function input: Nothing
+         *
+         * Job:
+         *  Return the last item.
+         *
+         *  If there is no item, raise an IllegalStateException.
+         *  You do not have to specify its message.
+         */
+        if(isEmpty()) throw new IllegalStateException();
+
+        return (E) tail.prev().val();
     }
 
     @Override
     public int size() {
         /*
-        * Function input: Nothing
-        *
-        * Job:
-        *  Return the number of items in the deque.
-        */
-        return -1;
+         * Function input: Nothing
+         *
+         * Job:
+         *  Return the number of items in the deque.
+         */
+        return size;
     }
 
     @Override
