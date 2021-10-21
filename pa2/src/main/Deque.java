@@ -15,11 +15,24 @@ public final class Deque<E> implements IDeque<E> {
     * Use some variables for your implementation.
     */
 
+    private int size = 0;
+    private final Node<E> head;
+    private final Node<E> tail;
+
+    /**
+     * Constructor
+     */
     public Deque() {
         /*
-        * Constructor
-        * This function is an initializer for this class.
-        */
+         * Constructor
+         * This function is an initializer for this class.
+         */
+        head = new Node<>();
+        tail = new Node<>();
+
+        // Connect [head] and [tail] together
+        head.setNext(tail);
+        tail.setPrev(head);
     }
 
     @Override
