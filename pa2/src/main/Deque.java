@@ -24,9 +24,9 @@ public final class Deque<E> implements IDeque<E> {
      */
     public Deque() {
         /*
-         * Constructor
-         * This function is an initializer for this class.
-         */
+        * Constructor
+        * This function is an initializer for this class.
+        */
         head = new Node<>();
         tail = new Node<>();
 
@@ -42,13 +42,13 @@ public final class Deque<E> implements IDeque<E> {
     @Override
     public void insertFirst(E item) {
         /*
-         * Function input:
-         *  item: an item to be inserted.
-         *
-         * Job:
-         *  Insert the given item before the first item of this deque.
-         *  If this deque is empty, use this item as the first item.
-         */
+        * Function input:
+        *  item: an item to be inserted.
+        *
+        * Job:
+        *  Insert the given item before the first item of this deque.
+        *  If this deque is empty, use this item as the first item.
+        */
 
         // Create new node to be added at the beginning of the deque,
         // and set its value to be [item].
@@ -85,13 +85,13 @@ public final class Deque<E> implements IDeque<E> {
     @Override
     public void insertLast(E item) {
         /*
-         * Function input:
-         *  item: an item to be inserted.
-         *
-         * Job:
-         *  Insert the given item after the last item of this deque.
-         *  If this deque is empty, use this item as the last item.
-         */
+        * Function input:
+        *  item: an item to be inserted.
+        *
+        * Job:
+        *  Insert the given item after the last item of this deque.
+        *  If this deque is empty, use this item as the last item.
+        */
 
         // Connect [last] to [head] and [tail], if the deque is empty
         if(isEmpty()) {
@@ -124,14 +124,14 @@ public final class Deque<E> implements IDeque<E> {
     public void deleteFirst()
             throws IllegalStateException {
         /*
-         * Function input: Nothing
-         *
-         * Job:
-         *  Delete the first item of the deque.
-         *
-         *  If there is no item, raise an IllegalStateException.
-         *  You do not have to specify its message.
-         */
+        * Function input: Nothing
+        *
+        * Job:
+        *  Delete the first item of the deque.
+        *
+        *  If there is no item, raise an IllegalStateException.
+        *  You do not have to specify its message.
+        */
 
         if(isEmpty()) throw new IllegalStateException();
 
@@ -151,14 +151,14 @@ public final class Deque<E> implements IDeque<E> {
     public void deleteLast()
             throws IllegalStateException {
         /*
-         * Function input: Nothing
-         *
-         * Job:
-         *  Delete the last item of the deque.
-         *
-         *  If there is no item, raise an IllegalStateException.
-         *  You do not have to specify its message.
-         */
+        * Function input: Nothing
+        *
+        * Job:
+        *  Delete the last item of the deque.
+        *
+        *  If there is no item, raise an IllegalStateException.
+        *  You do not have to specify its message.
+        */
 
         if(isEmpty()) throw new IllegalStateException();
 
@@ -179,14 +179,14 @@ public final class Deque<E> implements IDeque<E> {
     public E first()
             throws IllegalStateException {
         /*
-         * Function input: Nothing
-         *
-         * Job:
-         *  Return the first item.
-         *
-         *  If there is no item, raise an IllegalStateException.
-         *  You do not have to specify its message.
-         */
+        * Function input: Nothing
+        *
+        * Job:
+        *  Return the first item.
+        *
+        *  If there is no item, raise an IllegalStateException.
+        *  You do not have to specify its message.
+        */
         if(isEmpty()) throw new IllegalStateException();
 
         return (E) head.next().val();
@@ -201,14 +201,14 @@ public final class Deque<E> implements IDeque<E> {
     public E last()
             throws IllegalStateException {
         /*
-         * Function input: Nothing
-         *
-         * Job:
-         *  Return the last item.
-         *
-         *  If there is no item, raise an IllegalStateException.
-         *  You do not have to specify its message.
-         */
+        * Function input: Nothing
+        *
+        * Job:
+        *  Return the last item.
+        *
+        *  If there is no item, raise an IllegalStateException.
+        *  You do not have to specify its message.
+        */
         if(isEmpty()) throw new IllegalStateException();
 
         return (E) tail.prev().val();
@@ -217,11 +217,11 @@ public final class Deque<E> implements IDeque<E> {
     @Override
     public int size() {
         /*
-         * Function input: Nothing
-         *
-         * Job:
-         *  Return the number of items in the deque.
-         */
+        * Function input: Nothing
+        *
+        * Job:
+        *  Return the number of items in the deque.
+        */
         return size;
     }
 
