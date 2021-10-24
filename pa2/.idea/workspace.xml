@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70a076d5-5450-4681-857a-ec7b2327dcca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/Reconstructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Reconstructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/ReconstructorTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/ReconstructorTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,33 +86,11 @@
       <updated>1634806085210</updated>
       <workItem from="1634806089520" duration="8291000" />
       <workItem from="1634873297470" duration="623000" />
-      <workItem from="1635050142507" duration="1299000" />
+      <workItem from="1635050142507" duration="4283000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/ReconstructorTests.java</url>
-          <line>67</line>
-          <properties>
-            <option name="lambda-ordinal" value="1" />
-          </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/Reconstructor.java</url>
-          <line>25</line>
-          <properties class="Reconstructor" method="reconstruct">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

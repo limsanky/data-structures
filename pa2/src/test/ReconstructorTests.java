@@ -51,8 +51,8 @@ class ReconstructorTests {
     {
         IReconstructor tb = new Reconstructor();
 
-        ITreeNode root = tb.reconstruct(new Integer[] {1},new Integer[] {1});
-        assertThat(root.val(), is(1));
+        ITreeNode root = tb.reconstruct(new Integer[] {6},new Integer[] {6});
+        assertThat(root.val(), is(6));
         assertNull(root.left());
         assertNull(root.right());
     }
@@ -75,6 +75,20 @@ class ReconstructorTests {
     @Score(1)
     void customTest4()
     {
+        assertTimeoutPreemptively(
+                Duration.ofSeconds(1), () -> {
+                    IReconstructor tb = new Reconstructor();
+                    assertThrows(
+                            IllegalStateException.class, () -> tb.reconstruct(new Integer[] {19, 2, 5},
+                                    new Integer[] {13,20, 9}),
+                            "reconstruct()");
+                });
+    }
+
+    @Test
+    @Score(1)
+    void customTest5()
+    {
         IReconstructor tb = new Reconstructor();
 
         ITreeNode root = tb.reconstruct(new Integer[] {9,15,7,20,3},new Integer[] {9,3,15,20,7});
@@ -83,5 +97,16 @@ class ReconstructorTests {
         assertThat(root.right().val(), is(20));
         assertThat(root.right().right().val(), is(7));
         assertThat(root.right().left().val(), is(15));
+    }
+
+    @Test
+    @Score(1)
+    void customTest6()
+    {
+        IReconstructor tb = new Reconstructor();
+
+        assertThrows(
+                IllegalStateException.class, () -> tb.reconstruct(new Integer[] {9,5},new Integer[] {9,3,15,20,7}),
+                "reconstruct()");
     }
 }
