@@ -14,12 +14,16 @@ public final class Heap<V> implements IHeap<V> {
     /*
     * Use some variables for your implementation.
     */
+    private Node<V> root;
+    private int size;
 
     public Heap() {
         /*
         * Constructor
         * This function is an initializer for this class.
         */
+        root = null;
+        size = 0;
     }
 
     @Override
@@ -74,7 +78,9 @@ public final class Heap<V> implements IHeap<V> {
         *  Return the value of the entry with the smallest key.
         *  If the heap is empty, throw an exception.
         */
-        return null;
+        if (this.isEmpty()) throw new IllegalStateException();
+
+        return root.getValue();
     }
 
     @Override
@@ -85,7 +91,7 @@ public final class Heap<V> implements IHeap<V> {
         * Job:
         *  Return the number of entries in the heap.
         */
-        return 0;
+        return size;
     }
 
     @Override
@@ -96,7 +102,7 @@ public final class Heap<V> implements IHeap<V> {
         * Job:
         *  Return whether of not the heap is empty.
         */
-        return false;
+        return size == 0;
     }
 
     @Override
@@ -109,6 +115,7 @@ public final class Heap<V> implements IHeap<V> {
         *  If the heap is empty, throw an exception.
         */
         if (this.isEmpty()) throw new IllegalStateException();
-        return null;
+
+        return root;
     }
 }
