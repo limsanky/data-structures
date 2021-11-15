@@ -39,7 +39,96 @@ public final class Heap<V> implements IHeap<V> {
          *  If the heap is not empty or lengths of keys and values are different,
          *  throw an exception.
          */
-        return;
+
+        if (!isEmpty() || (keys.length != values.length))
+            throw new IllegalStateException();
+
+        if (keys.length != 0) {
+            int count = keys.length;
+
+            // Create heap in array format
+            for (int i = count / 2 - 1; i >= 0; i--)
+                createHeap(keys, values, i, count);
+
+            // Linking the Nodes to create the Heap
+            linkHeapNodes(keys, values);
+
+            size = keys.length;
+        }
+    }
+
+    /**
+     * Recursively creates an array-based heap for
+     * the provided [keys] and corresponding [values] arrays.
+     * @param keys Array of keys
+     * @param values Array of corresponding values
+     * @param index Index of element
+     * @param count Size of keys and values arrays (is equal)
+     */
+    private void createHeap(int[] keys, V[] values, int index, int count) {
+        int smallest = index;
+        int left = 2 * index + 1;
+        int right = left + 1;
+
+        if ((left < count) && (keys[left] < keys[smallest]))
+            smallest = left;
+
+        if ((right < count) && (keys[right] < keys[smallest]))
+            smallest = right;
+
+        if (smallest != index) {
+            // Swapping of elements in keys and values arrays
+            // from [smallest] to [index]
+            swapElements(smallest, index, keys, values);
+
+            // Recursively create the heap
+            createHeap(keys, values, smallest, count);
+        }
+    }
+
+    /**
+     * Swaps elements present at indices @from and @to of keys and values arrays
+     * @param from index of element to be swapped
+     * @param to index of element to be swapped with
+     * @param keys the keys array
+     * @param values the values array
+     */
+    private void swapElements(int from, int to, int[] keys, V[] values) {
+        int k = keys[from];
+        V v = values[from];
+
+        keys[from] = keys[to];
+        values[from] = values[to];
+        keys[to] = k;
+        values[to] = v;
+    }
+
+    /**
+     * Creates Heap Nodes for the root node
+     * according to the provided keys and values arrays.
+     * @param keys Heapified keys array
+     * @param values Corresponding heapified values array
+     */
+    private void linkHeapNodes(int[] keys, V[] values) {
+
+        Node<V>[] heapNodes = new Node[keys.length];
+
+        for (int i = 0; i < keys.length; i++) {
+            Node<V> current = new Node<>(keys[i], values[i]);
+            heapNodes[i] = current;
+
+            if(i != 0) {
+                current.setParent(heapNodes[i/2]);
+
+                if (i % 2 != 0)
+                    heapNodes[i / 2].setLeft(current);
+                else
+                    heapNodes[i / 2].setRight(current);
+            }
+        }
+
+        if (heapNodes.length > 0)
+            root = heapNodes[0];
     }
 
     @Override
