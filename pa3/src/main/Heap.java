@@ -53,7 +53,62 @@ public final class Heap<V> implements IHeap<V> {
          *  Insert an entry with the given key and value.
          *  You can assume that each key of given entry is unique.
          */
-        return;
+
+        // If size is 0
+        if (size == 0) {
+            root = new Node<>(key, value);
+            size++;
+            return;
+        }
+
+        Node<V> newNode = new Node<>(key, value);
+
+        // [numNodesBottom] contains the number of nodes at the last level.
+        // It starts from [size], since we have already dealt with the condition that size is 0.
+        int numNodesBottom = size;
+
+        // [numNodesLevel] contains the number of nodes at a particular level.
+        // [numOfCompleteLevels] indicates the number of levels that are 'full'.
+        int numNodesLevel, numOfCompleteLevels;
+
+        for(numNodesLevel = 1, numOfCompleteLevels = 0;; numNodesLevel *= 2, numOfCompleteLevels++) {
+            if (numNodesBottom - numNodesLevel < 0)
+                break;
+            numNodesBottom -= numNodesLevel;
+        }
+
+        Node<V> current = root;
+        for(int bit = 1 << (numOfCompleteLevels - 1); bit != 1; bit >>= 1) {
+            // If last bit is 1, it means the right node,
+            // else it means the left node.
+            if ((numNodesBottom & bit) == bit)
+                current = (Node<V>) current.getRight();
+            else
+                current = (Node<V>) current.getLeft();
+        }
+
+        // If the last node has a left child, set new node as the right child.
+        // Else, just set the left child as the new node.
+        if (current.getLeft() != null)
+            current.setRight(newNode);
+        else
+            current.setLeft(newNode);
+
+        // Set new node's parent as the current node.
+        newNode.setParent(current);
+
+        // Increase size by 1.
+        size++;
+
+        Node<V> addedNode = newNode;
+
+        // Traverse up the heap to fix the heap if its requirements are not met.
+        while(hasParent(addedNode)){
+            if (addedNode.getKey() < addedNode.getParent().getKey()) {
+                swapNodes(addedNode, addedNode.getParent());
+                addedNode = (Node<V>) addedNode.getParent();
+            } else break;
+        }
     }
 
     /**
