@@ -234,13 +234,23 @@ public final class Hash<K> implements IHash<K> {
     @Override
     public List<K> show() {
         /*
-        * Job:
-        *  Return the items in the hashtable.
-        *  The list index must be the bucket index of the item.
-        *  If a bucket has no item, assign null.
-        *  Note that you can use ArrayList.
-        */
-        return null;
+         * Job:
+         *  Return the items in the hashtable.
+         *  The list index must be the bucket index of the item.
+         *  If a bucket has no item, assign null.
+         *  Note that you can use ArrayList.
+         */
+        ArrayList<K> list = new ArrayList<K> (hashTableSize);
+
+        for(int i = 0; i < hashTableSize; i++) {
+            HashNode<K> e = hashTable[i];
+            if (e != null)
+                list.add(e.key);
+            else
+                list.add(null);
+        }
+
+        return list;
     }
 
 }
