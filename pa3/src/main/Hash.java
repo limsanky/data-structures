@@ -164,15 +164,23 @@ public final class Hash<K> implements IHash<K> {
     @Override
     public void remove(K key) throws IllegalStateException {
         /*
-        * Input:
-        *  + key: A key to be removed
-        *
-        * Job:
-        *  Delete the key from the hash table.
-        *  To decide whether two keys are equal,
-        *  you must use _key.equals_ method.
-        *  If the key does not exist in the table, raise an exception.
-        */
+         * Input:
+         *  + key: A key to be removed
+         *
+         * Job:
+         *  Delete the key from the hash table.
+         *  To decide whether two keys are equal,
+         *  you must use _key.equals_ method.
+         *  If the key does not exist in the table, raise an exception.
+         */
+        if (!exists(key))
+            throw new IllegalStateException();
+
+        if (lastSearchedElementIndex > -1)
+            if (key.equals(hashTable[lastSearchedElementIndex].key)) {
+                hashTable[lastSearchedElementIndex].clearNode();
+                count--;
+            }
     }
 
     @Override
