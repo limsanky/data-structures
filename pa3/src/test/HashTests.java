@@ -172,7 +172,7 @@ public class HashTests {
             h.remove(2);
             assertThat(h.exists(2), is(false));
 
-            assertThat(h.show(), is(Arrays.asList(null, null, null, 3)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[] { null, null, null, 3 })));
         });
     }
 
@@ -220,7 +220,7 @@ public class HashTests {
             assertThat(h.exists(2), is(false));
             assertThat(h.exists(20), is(false));
 
-            assertThat(h.show(), is(Arrays.asList(null, 230, 332, null, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{null, 230, 332, null, null})));
         });
     }
 
@@ -236,7 +236,7 @@ public class HashTests {
             h.put(3);
 
             assertThat(h.size(), is(3));
-            assertThat(h.show(), is(Arrays.asList(0, 5, null, 3, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[] { 0, 5, null, 3, null })));
 
         });
     }
@@ -250,13 +250,13 @@ public class HashTests {
 
             h.put(10);
             h.put(5);
-            assertThat(h.show(), is(Arrays.asList(10, 5, null, null, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{10, 5, null, null, null})));
             h.put(23);
-            assertThat(h.show(), is(Arrays.asList(10, 5, null, 23, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{10, 5, null, 23, null})));
             h.put(20);
-            assertThat(h.show(), is(Arrays.asList(10, 5, 20, 23, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{10, 5, 20, 23, null})));
             h.put(30);
-            assertThat(h.show(), is(Arrays.asList(10, 20, 30, 23, null, 5, null, null, null, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{10, 20, 30, 23, null, 5, null, null, null, null})));
 
             assertThat(h.size(), is(5));
             assertThat(h.tablesize(), is(10));
@@ -264,10 +264,10 @@ public class HashTests {
             h.remove(10);
             h.remove(5);
             assertThat(h.size(), is(3));
-            assertThat(h.show(), is(Arrays.asList(null, 20, 30, 23, null, null, null, null, null, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{null, 20, 30, 23, null, null, null, null, null, null})));
             h.put(5);
             h.put(10);
-            assertThat(h.show(), is(Arrays.asList(10, 20, 30, 23, null, 5, null, null, null, null)));
+            assertThat(h.show(), is(Arrays.asList(new Integer[]{10, 20, 30, 23, null, 5, null, null, null, null})));
         });
     }
 

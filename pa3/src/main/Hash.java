@@ -121,7 +121,6 @@ public final class Hash<K> implements IHash<K> {
                 else break;
             }
 
-
             hashTable[index] = new HashNode<>(key);
             count++;
 
@@ -195,10 +194,8 @@ public final class Hash<K> implements IHash<K> {
          *  you must use _key.equals_ method.
          */
 
-
         if (count != 0) {
             int index = hashTool.hash(key, hashTableSize);
-
 
             int n = 0;
             while (n < hashTableSize && index < hashTableSize) {
