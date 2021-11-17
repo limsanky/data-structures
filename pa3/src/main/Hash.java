@@ -18,13 +18,62 @@ public final class Hash<K> implements IHash<K> {
     /*
     * Use some variables for your implementation.
     */
+    private HashNode<K>[] hashTable;
+    private int count;
+    private int hashTableSize;
+    private final IHashFunction<K> hashTool;
+    private final IResizeFunction resizeTool;
+    private int lastSearchedElementIndex = -1;
+
+    /**
+     * Custom Hash Node is created which is a generic type.
+     * @param <T> Generic Type
+     */
+    private class HashNode<T> {
+        public T key = null;
+        public boolean isDefunct = false;
+
+        public HashNode() {}
+
+        public HashNode(T k) {
+            key = k;
+            isDefunct = false;
+        }
+
+        public void clearNode() {
+            key = null;
+            isDefunct = true;
+        }
+    }
+
     public Hash(int tablesize) {
         /*
          * Constructor
          * This function is an initializer for this class. You should implement your own HashFunction and ResizeFunction.
          * Input:
          *  + tablesize: the initial table size of the hash table.
-        */
+         */
+
+        hashTable = new HashNode[tablesize];
+        hashTableSize = tablesize;
+        count = 0;
+
+        hashTool = new IHashFunction<K>() {
+            @Override
+            public int hash(K i, int length) {
+                return i.hashCode() % length;
+            }
+        };
+
+        resizeTool = new IResizeFunction() {
+            public boolean checkResize(int tablesize, int numItems) {
+                return numItems > tablesize * 0.8;
+            }
+
+            public int extendTable(int tablesize) {
+                return tablesize * 2;
+            }
+        };
     }
 
     public Hash(int tablesize, IHashFunction<K> h, IResizeFunction ex) {
@@ -38,7 +87,13 @@ public final class Hash<K> implements IHash<K> {
          *      boolean ex.checkResize(int tablesize, int numItems): returns 'true' if the table must be extended for containing 'numItems' items. Otherwise, returns 'false'.
          *      int ex.extendTable(int tablesize): returns new tablesize for extended table.
          *  + tablesize: the initial table size of the hash table.
-        */
+         */
+        hashTable = new HashNode[tablesize];
+        hashTableSize = tablesize;
+        count = 0;
+
+        hashTool = h;
+        resizeTool = ex;
     }
 
     @Override
