@@ -216,19 +216,19 @@ public final class Hash<K> implements IHash<K> {
     @Override
     public int size() {
         /*
-        * Job:
-        *  Return the number of items in the hashtable.
-        */
-        return -1;
+         * Job:
+         *  Return the number of items in the hashtable.
+         */
+        return count;
     }
 
     @Override
     public int tablesize() {
         /*
-        * Job:
-        *  Return the size of current hashtable.
-        */
-        return -1;
+         * Job:
+         *  Return the size of current hashtable.
+         */
+        return hashTableSize;
     }
 
     @Override
