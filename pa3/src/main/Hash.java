@@ -18,33 +18,12 @@ public final class Hash<K> implements IHash<K> {
     /*
     * Use some variables for your implementation.
     */
-    private HashNode<K>[] hashTable;
+    private ArrayList<K> hashTable;
     private int count;
     private int hashTableSize;
     private final IHashFunction<K> hashTool;
     private final IResizeFunction resizeTool;
     private int lastSearchedElementIndex = -1;
-
-    /**
-     * Custom Hash Node is created which is a generic type.
-     * @param <T> Generic Type
-     */
-    private class HashNode<T> {
-        public T key = null;
-        public boolean isDefunct = false;
-
-        public HashNode() {}
-
-        public HashNode(T k) {
-            key = k;
-            isDefunct = false;
-        }
-
-        public void clearNode() {
-            key = null;
-            isDefunct = true;
-        }
-    }
 
     public Hash(int tablesize) {
         /*
@@ -54,7 +33,9 @@ public final class Hash<K> implements IHash<K> {
          *  + tablesize: the initial table size of the hash table.
          */
 
-        hashTable = new HashNode[tablesize];
+        hashTable = new ArrayList<>(tablesize);
+        for (int i = 0; i < tablesize; i++)
+            hashTable.add(i, null);
         hashTableSize = tablesize;
         count = 0;
 
@@ -88,7 +69,9 @@ public final class Hash<K> implements IHash<K> {
          *      int ex.extendTable(int tablesize): returns new tablesize for extended table.
          *  + tablesize: the initial table size of the hash table.
          */
-        hashTable = new HashNode[tablesize];
+        hashTable = new ArrayList<>(tablesize);
+        for (int i = 0; i < tablesize; i++)
+            hashTable.add(i, null);
         hashTableSize = tablesize;
         count = 0;
 
@@ -114,43 +97,45 @@ public final class Hash<K> implements IHash<K> {
 
             int index = hashTool.hash(key, hashTableSize);
 
-            // Linear Probing
-            while (hashTable[index] != null) {
-                if (hashTable[index].key != null)
+            if (count != 0)
+                while (!key.equals(hashTable.get(index))) {
+                    if (hashTable.get(index) == null)
+                        break;
                     index++;
-                else break;
-            }
+                }
 
-            hashTable[index] = new HashNode<>(key);
+            hashTable.set(index, key);
             count++;
 
             if (resizeTool.checkResize(hashTableSize, count)) {
                 // Table needs to be resized
 
                 int newSize = resizeTool.extendTable(hashTableSize);
-                HashNode<K>[] newTable = new HashNode[newSize];
+                ArrayList<K> newTable = new ArrayList<K>(newSize);
+
+                for (int i = 0; i < newSize; i++)
+                    newTable.add(i, null);
 
                 int done = 0;
                 for (int i = 0; i < hashTableSize; i++) {
                     if (done < count) {
-                        HashNode<K> element = hashTable[i];
+                        K element = hashTable.get(i);
 
                         if (element != null) {
 
-                            int newIndex = hashTool.hash(element.key, newSize);
+                            int newIndex = hashTool.hash(element, newSize);
 
                             // Linear Probing
-                            while (newTable[newIndex] != null) {
-                                if (newTable[newIndex].key != null)
-                                    newIndex++;
-                                else break;
+                            while (!element.equals(newTable.get(newIndex))) {
+                                if (newTable.get(newIndex) == null)
+                                    break;
+                                newIndex++;
                             }
 
-                            newTable[newIndex] = new HashNode<>(element.key);
+                            newTable.set(newIndex, element);
                             done++;
                         }
-                    }
-                    else
+                    } else
                         break;
                 }
 
@@ -176,8 +161,8 @@ public final class Hash<K> implements IHash<K> {
             throw new IllegalStateException();
 
         if (lastSearchedElementIndex > -1)
-            if (key.equals(hashTable[lastSearchedElementIndex].key)) {
-                hashTable[lastSearchedElementIndex].clearNode();
+            if (key.equals(hashTable.get(lastSearchedElementIndex))) {
+                hashTable.set(lastSearchedElementIndex, null);
                 count--;
             }
     }
@@ -199,8 +184,8 @@ public final class Hash<K> implements IHash<K> {
 
             int n = 0;
             while (n < hashTableSize && index < hashTableSize) {
-                if (hashTable[index] != null) {
-                    if (key.equals(hashTable[index].key)) {
+                if (hashTable.get(index) != null) {
+                    if (key.equals(hashTable.get(index))) {
                         lastSearchedElementIndex = index;
                         return true;
                     }
@@ -247,13 +232,8 @@ public final class Hash<K> implements IHash<K> {
          */
         ArrayList<K> list = new ArrayList<K> (hashTableSize);
 
-        for(int i = 0; i < hashTableSize; i++) {
-            HashNode<K> e = hashTable[i];
-            if (e != null)
-                list.add(e.key);
-            else
-                list.add(null);
-        }
+        for(int i = 0; i < hashTableSize; i++)
+            list.add(hashTable.get(i));
 
         return list;
     }
