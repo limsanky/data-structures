@@ -100,8 +100,8 @@ public final class Hash<K> implements IHash<K> {
     public void put(K key) {
         /**
          * Input:
-         * + key: A key to be added 
-         * 
+         * + key: A key to be added
+         *
          * Job:
          *  Add the key into the hashtable.
          *  If the table must be extended, extend the table and retry adding the key.
@@ -109,6 +109,56 @@ public final class Hash<K> implements IHash<K> {
          *  To decide whether two keys are equal,
          *  you must use _key.equals_ method.
          */
+        if (!exists(key)) {
+            // Key doesn't exist in the table
+
+            int index = hashTool.hash(key, hashTableSize);
+
+            // Linear Probing
+            while (hashTable[index] != null) {
+                if (hashTable[index].key != null)
+                    index++;
+                else break;
+            }
+
+
+            hashTable[index] = new HashNode<>(key);
+            count++;
+
+            if (resizeTool.checkResize(hashTableSize, count)) {
+                // Table needs to be resized
+
+                int newSize = resizeTool.extendTable(hashTableSize);
+                HashNode<K>[] newTable = new HashNode[newSize];
+
+                int done = 0;
+                for (int i = 0; i < hashTableSize; i++) {
+                    if (done < count) {
+                        HashNode<K> element = hashTable[i];
+
+                        if (element != null) {
+
+                            int newIndex = hashTool.hash(element.key, newSize);
+
+                            // Linear Probing
+                            while (newTable[newIndex] != null) {
+                                if (newTable[newIndex].key != null)
+                                    newIndex++;
+                                else break;
+                            }
+
+                            newTable[newIndex] = new HashNode<>(element.key);
+                            done++;
+                        }
+                    }
+                    else
+                        break;
+                }
+
+                hashTable = newTable;
+                hashTableSize = newSize;
+            }
+        }
     }
 
     @Override
@@ -128,14 +178,38 @@ public final class Hash<K> implements IHash<K> {
     @Override
     public boolean exists(K key) {
         /*
-        * Input:
-        *  + key: A key to be checked
-        *
-        * Job:
-        *  Return true if the key is in the table; false otherwise.
-        *  To decide whether two keys are equal,
-        *  you must use _key.equals_ method.
-        */
+         * Input:
+         *  + key: A key to be checked
+         *
+         * Job:
+         *  Return true if the key is in the table; false otherwise.
+         *  To decide whether two keys are equal,
+         *  you must use _key.equals_ method.
+         */
+
+
+        if (count != 0) {
+            int index = hashTool.hash(key, hashTableSize);
+
+
+            int n = 0;
+            while (n < hashTableSize && index < hashTableSize) {
+                if (hashTable[index] != null) {
+                    if (key.equals(hashTable[index].key)) {
+                        lastSearchedElementIndex = index;
+                        return true;
+                    }
+                } else {
+                    lastSearchedElementIndex = -1;
+                    return false;
+                }
+
+                index++;
+                n++;
+            }
+        }
+
+        lastSearchedElementIndex = -1;
         return false;
     }
 
