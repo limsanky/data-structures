@@ -8,12 +8,12 @@ on:
     branches:
       - main
     paths:
-      - 'pa**/'
+      - 'pa**/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'pa**/'
+      - 'pa**/**'
       
 
 jobs:
