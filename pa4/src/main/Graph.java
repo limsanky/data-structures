@@ -65,10 +65,22 @@ public final class Graph implements IGraph {
     public void insertVertex() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Extend the number of verticies and label it as the last number.
          */
+
+        // Increase number of vertices by 1
+        size++;
+
+        // Create and write to new matrix with the new vertex
+        int[][] newMatrix = new int[size][size];
+
+        for (int i = 0; i < matrix.length; i++)
+            System.arraycopy(matrix[i], 0, newMatrix[i], 0, matrix[i].length);
+
+        // Replace old matrix with the new matrix
+        matrix = newMatrix;
     }
 
     @Override
