@@ -22,19 +22,65 @@ public final class Graph implements IGraph {
 
     public Graph(String filename) {
         /*
-        * Constructor
-        * This function is an initializer for this class.
-        */
+         * Constructor
+         * This function is an initializer for this class.
+         */
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+
+            // Get first line
+            String line = br.readLine();
+
+            // Split line wrt to the space
+            String[] splitResult = line.split(" ");
+
+            // Set the [matrix] and [size] variables
+            size = Integer.parseInt(splitResult[0]);
+            matrix = new int[size][size];
+
+            // Get next line
+            line = br.readLine();
+
+            int source = 0, dest = 0, weight = 0;
+            while (line != null) {
+                splitResult = line.split(" ");
+
+                // Get [source], [dest], and [weight] for the edge
+                source = Integer.parseInt(splitResult[0]);
+                dest = Integer.parseInt(splitResult[1]);
+                weight = Integer.parseInt(splitResult[2]);
+
+                // Set weight of edge
+                matrix[source][dest] = weight;
+
+                line = br.readLine();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public void insertVertex() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Extend the number of verticies and label it as the last number.
          */
+
+        // Increase number of vertices by 1
+        size++;
+
+        // Create and write to new matrix with the new vertex
+        int[][] newMatrix = new int[size][size];
+
+        for (int i = 0; i < matrix.length; i++)
+            System.arraycopy(matrix[i], 0, newMatrix[i], 0, matrix[i].length);
+
+        // Replace old matrix with the new matrix
+        matrix = newMatrix;
     }
 
     @Override
@@ -42,10 +88,43 @@ public final class Graph implements IGraph {
         /**
          * Input:
          *  + n: the node to delete
-         * 
+         *
          * Job:
          *  Delete the node n and its connections to other nodes.
          */
+        if (n >= size)
+            return;
+
+        // Decrease number of vertices by 1
+        size--;
+
+        // Create and write to new matrix with the new vertex
+        int[][] newMatrix = new int[size][size];
+
+        // Copying elements that are NOT related to [n]th row or [n]th column!!!
+
+        int source, dest;
+        // Copy elements to the top-left corner
+        for (source = 0; source < n; source++)
+            System.arraycopy(matrix[source], 0, newMatrix[source], 0, n);
+
+        // Copy elements to the top-right corner
+        for (source = 0; source < n; source++)
+            for (dest = n + 1; dest < matrix[source].length; dest++)
+                newMatrix[source][dest - 1] = matrix[source][dest];
+
+        // Copy elements to the bottom-left corner
+        for (source = n + 1; source < matrix.length; source++)
+            for (dest = 0; dest < n; dest++)
+                newMatrix[source - 1][dest] = matrix[source][dest];
+
+        // Copy elements to the bottom-right corner
+        for (source = n + 1; source < matrix.length; source++)
+            for (dest = n + 1; dest < matrix[source].length; dest++)
+                newMatrix[source - 1][dest - 1] = matrix[source][dest];
+
+        // Replace old matrix with the new matrix
+        matrix = newMatrix;
     }
 
     @Override
@@ -55,10 +134,11 @@ public final class Graph implements IGraph {
          *  + u: start vertex
          *  + v: end vertex
          *  + w: weight of the edge
-         * 
+         *
          * Job:
          *  Insert an edge from u to v with weight w.
          */
+        matrix[u][v] = w;
     }
 
     @Override
@@ -67,31 +147,35 @@ public final class Graph implements IGraph {
          * Input:
          *  + u: start vertex
          *  + v: end vertex
-         * 
+         *
          * Job:
          *  Delete an edge from u to v.
          */
+        if (u >= size || v >= size)
+            return;
+
+        matrix[u][v] = 0;
     }
 
     @Override
     public int[][] matrix() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Return the adjacency matrix.
          */
-        return null;
+        return matrix;
     }
 
     @Override
     public int size() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Return the size.
          */
-        return -1;
+        return size;
     }
 }
