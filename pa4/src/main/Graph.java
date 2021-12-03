@@ -89,10 +89,11 @@ public final class Graph implements IGraph {
          *  + u: start vertex
          *  + v: end vertex
          *  + w: weight of the edge
-         * 
+         *
          * Job:
          *  Insert an edge from u to v with weight w.
          */
+        matrix[u][v] = w;
     }
 
     @Override
@@ -101,10 +102,14 @@ public final class Graph implements IGraph {
          * Input:
          *  + u: start vertex
          *  + v: end vertex
-         * 
+         *
          * Job:
          *  Delete an edge from u to v.
          */
+        if (u >= size || v >= size)
+            return;
+
+        matrix[u][v] = 0;
     }
 
     @Override
