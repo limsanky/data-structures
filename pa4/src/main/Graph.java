@@ -111,21 +111,21 @@ public final class Graph implements IGraph {
     public int[][] matrix() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Return the adjacency matrix.
          */
-        return null;
+        return matrix;
     }
 
     @Override
     public int size() {
         /**
          * Input: None
-         * 
+         *
          * Job:
          *  Return the size.
          */
-        return -1;
+        return size;
     }
 }
