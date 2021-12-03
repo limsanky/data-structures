@@ -88,10 +88,43 @@ public final class Graph implements IGraph {
         /**
          * Input:
          *  + n: the node to delete
-         * 
+         *
          * Job:
          *  Delete the node n and its connections to other nodes.
          */
+        if (n >= size)
+            return;
+
+        // Decrease number of vertices by 1
+        size--;
+
+        // Create and write to new matrix with the new vertex
+        int[][] newMatrix = new int[size][size];
+
+        // Copying elements that are NOT related to [n]th row or [n]th column!!!
+
+        int source, dest;
+        // Copy elements to the top-left corner
+        for (source = 0; source < n; source++)
+            System.arraycopy(matrix[source], 0, newMatrix[source], 0, n);
+
+        // Copy elements to the top-right corner
+        for (source = 0; source < n; source++)
+            for (dest = n + 1; dest < matrix[source].length; dest++)
+                newMatrix[source][dest - 1] = matrix[source][dest];
+
+        // Copy elements to the bottom-left corner
+        for (source = n + 1; source < matrix.length; source++)
+            for (dest = 0; dest < n; dest++)
+                newMatrix[source - 1][dest] = matrix[source][dest];
+
+        // Copy elements to the bottom-right corner
+        for (source = n + 1; source < matrix.length; source++)
+            for (dest = n + 1; dest < matrix[source].length; dest++)
+                newMatrix[source - 1][dest - 1] = matrix[source][dest];
+
+        // Replace old matrix with the new matrix
+        matrix = newMatrix;
     }
 
     @Override
