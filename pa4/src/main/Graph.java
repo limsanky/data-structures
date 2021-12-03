@@ -22,9 +22,43 @@ public final class Graph implements IGraph {
 
     public Graph(String filename) {
         /*
-        * Constructor
-        * This function is an initializer for this class.
-        */
+         * Constructor
+         * This function is an initializer for this class.
+         */
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+
+            // Get first line
+            String line = br.readLine();
+
+            // Split line wrt to the space
+            String[] splitResult = line.split(" ");
+
+            // Set the [matrix] and [size] variables
+            size = Integer.parseInt(splitResult[0]);
+            matrix = new int[size][size];
+
+            // Get next line
+            line = br.readLine();
+
+            int source = 0, dest = 0, weight = 0;
+            while (line != null) {
+                splitResult = line.split(" ");
+
+                // Get [source], [dest], and [weight] for the edge
+                source = Integer.parseInt(splitResult[0]);
+                dest = Integer.parseInt(splitResult[1]);
+                weight = Integer.parseInt(splitResult[2]);
+
+                // Set weight of edge
+                matrix[source][dest] = weight;
+
+                line = br.readLine();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
