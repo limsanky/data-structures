@@ -35,7 +35,18 @@ public final class SCC implements ISCC {
          * Job:
          *  Return whether there is a path from u to v or not.
          */
-        return false;
+        weightMatrix = G.matrix();
+        numOfVertices = weightMatrix.length;
+
+        visited = new Boolean[numOfVertices];
+        for(int i = 0; i < numOfVertices; i++)
+            visited[i] = false;
+
+        // Perform DFS on the node [u], and check if [v] is a valid reachable vertex.
+        depthFirstSearch(u, visited, false);
+
+        // Returns true if [v] turns out to be a reachable vertex to vertex node [u]
+        return visited[v];
     }
 
     /**
