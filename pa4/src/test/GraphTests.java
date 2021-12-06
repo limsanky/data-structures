@@ -19,6 +19,24 @@ public class GraphTests {
 
     @Test
     @Score(1)
+    void customTestCreation1() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph3.txt");
+            assertThat(G.size(), is(5));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTestCreation2() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph2.txt");
+            assertThat(G.size(), is(10));
+        });
+    }
+
+    @Test
+    @Score(1)
     void testNodeInsertDelete() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/graph1.txt");
@@ -36,6 +54,46 @@ public class GraphTests {
     }
 
     @Test
+    @Score(3)
+    void customTestNodeInsertDelete1() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph3.txt");
+
+            // Deletion should not occur here!
+            G.deleteVertex(6);
+            assertThat(G.size(), is(5));
+
+            // Deletion should occur from here onwards
+            G.insertVertex();
+            assertThat(G.size(), is(6));
+            G.insertVertex();
+            G.insertVertex();
+            assertThat(G.size(), is(8));
+            G.deleteVertex(3);
+            G.deleteVertex(2);
+            assertThat(G.size(), is(6));
+
+            // Deletion should not occur here!
+            G.deleteVertex(6);
+            assertThat(G.size(), is(6));
+
+            // Deletion should occur from here onwards
+            G.deleteVertex(5);
+            assertThat(G.size(), is(5));
+
+            G.deleteVertex(3);
+            assertThat(G.size(), is(4));
+
+            G.deleteVertex(2);
+            assertThat(G.size(), is(3));
+
+            // Deletion should not occur here!
+            G.deleteVertex(3);
+            assertThat(G.size(), is(3));
+        });
+    }
+
+    @Test
     @Score(1)
     void testConstruction() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
@@ -46,6 +104,99 @@ public class GraphTests {
                             { 0, 0, 0, 0, 0, 1, 0, 0, 0, 1 }, { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
                             { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } }));
+        });
+    }
+
+    @Test
+    @Score(5)
+    void customTestConstruction1() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph3.txt");
+
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0 }, { 0, 0, 1, 0, 0 },
+                            { 0, 0, 0, 1, 0 }, { 0, 0, 0, 0, 1 },
+                            { 1, 0, 0, 0, 0 }
+                    }));
+
+            G.insertVertex();
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0 },
+                            { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 1, 0 },
+                            { 1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }
+                    }));
+
+            G.insertVertex();
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0, 0 },
+                            { 0, 0, 0, 1, 0, 0, 0 }, { 0, 0, 0, 0, 1, 0, 0 },
+                            { 1, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0 },
+                            { 0, 0, 0, 0, 0, 0, 0 }
+                    }));
+
+            G.deleteVertex(5);
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0, 0 }, { 0, 0, 1, 0, 0, 0 },
+                            { 0, 0, 0, 1, 0, 0 }, { 0, 0, 0, 0, 1, 0 },
+                            { 1, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0 }
+                    }));
+
+            G.deleteVertex(5);
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0 }, { 0, 0, 1, 0, 0 },
+                            { 0, 0, 0, 1, 0 }, { 0, 0, 0, 0, 1 },
+                            { 1, 0, 0, 0, 0 }
+                    }));
+        });
+    }
+
+    @Test
+    @Score(5)
+    void customTestConstruction2() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph4.txt");
+
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0 }, { 1, 0, 0, 0, 0 },
+                            { 0, 0, 0, 1, 1 }, { 0, 0, 1, 0, 0 },
+                            { 0, 0, 1, 0, 0 }
+                    }));
+
+            G.deleteVertex(3);
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0 }, { 1, 0, 0, 0 },
+                            { 0, 0, 0, 1 }, { 0, 0, 1, 0 }
+                    }));
+
+            G.insertVertex();
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0, 0 }, { 1, 0, 0, 0, 0 },
+                            { 0, 0, 0, 1, 0 }, { 0, 0, 1, 0, 0 },
+                            { 0, 0, 0, 0, 0 }
+                    }));
+
+            G.deleteVertex(4);
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0 }, { 1, 0, 0, 0 },
+                            { 0, 0, 0, 1 }, { 0, 0, 1, 0 }
+                    }));
+
+            G.insertVertex();
+            G.deleteVertex(3);
+            assertThat(G.matrix(),
+                    is(new int[][] {
+                            { 0, 1, 0, 0 }, { 1, 0, 0, 0 },
+                            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }
+                    }));
         });
     }
 
