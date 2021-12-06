@@ -150,11 +150,112 @@ public final class MST implements IMST {
         /**
          * Input:
          *  + G: directed graph
-         * 
+         *
          * Job:
          *  Return the total weight of the MST in G'.
          *  If MST doesn't exist, return -1.
          */
-        return -1;
+        matrix = G.matrix();
+        numOfVertices = matrix.length;
+        undirectedEdges = new int[numOfVertices][numOfVertices];
+        minDistances = new int[numOfVertices];
+
+        // Create the undirected graph edges from the input graph.
+        for (int s = 0; s < numOfVertices; s++) {
+            for (int i = s + 1; i < numOfVertices; i++) {
+                int temp = matrix[s][i] + matrix[i][s];
+
+                undirectedEdges[s][i] = temp;
+                undirectedEdges[i][s] = temp;
+            }
+        }
+
+        int[] minimumSpanningTree = getMinSpanTree();
+
+        return calculateWeight(minimumSpanningTree);
+    }
+
+    /**
+     * Calculates the weight of the minimum spanning tree which has been produced!
+     * Returns -1 if the input tree array is of length 0.
+     * @param minSpanTree Array of vertices to which constitute the minimum spanning tree
+     * @return Weight of the minimum spanning tree; -1 if the length of the input array is 0
+     */
+    private int calculateWeight(int[] minSpanTree) {
+        // Invalid tree, if there are no vertices
+        // => return -1
+        if (minSpanTree.length == 0)
+            return -1;
+
+        int weight = 0;
+
+        // Calculate weights for the edges.
+        // [source] and [dest] indices help us know the edge in the MST,
+        // which can be accessed through [undirectedEdges].
+        for (int source = 0; source < numOfVertices - 1; source++) {
+            int dest = minSpanTree[source + 1];
+
+            weight = weight + undirectedEdges[source + 1][dest];
+        }
+
+        // Returns the calculated weight.
+        return weight;
+    }
+
+    /**
+     * Get the Minimum Spanning Tree using Prim's Algorithm
+     * @return Array with vertices of the Minimum Spanning Tree
+     */
+    private int[] getMinSpanTree() {
+        int[] childTree = new int[numOfVertices];
+        boolean[] inMinSpanTree = new boolean[numOfVertices];
+
+        // Initialization
+        for(int i = 1; i < numOfVertices; i++) {
+            minDistances[i] = MAX;
+            inMinSpanTree[i] = false;
+        }
+
+        inMinSpanTree[0] = false;
+        minDistances[0] = 0;
+        childTree[0] = 0;
+
+        for (int count = 0; count < numOfVertices - 1; count++) {
+            int minDistanceVertex = minDistanceIndex(inMinSpanTree);
+
+            if (minDistanceVertex == -1)
+                return new int[] {};
+
+            inMinSpanTree[minDistanceVertex] = true;
+
+            for (int adjVertex = 0; adjVertex < numOfVertices; adjVertex++) {
+                int weight = undirectedEdges[minDistanceVertex][adjVertex];
+
+                if (!inMinSpanTree[adjVertex] && weight != 0 && weight < minDistances[adjVertex]) {
+                    childTree[adjVertex] = minDistanceVertex;
+                    minDistances[adjVertex] = weight;
+                }
+            }
+        }
+
+        return childTree;
+    }
+
+    /**
+     * Returns the index of the vertex NOT present in the MST, to which the distance is the smallest.
+     * @param inMinSpanTree Array of booleans which inform if the vertex is present in the MST or not
+     * @return Index of the vertex to which the distance is the smallest
+     */
+    private int minDistanceIndex(boolean[] inMinSpanTree) {
+        int index = -1;
+        int min = MAX;
+
+        for (int i = 0; i < numOfVertices; i++)
+            if (!inMinSpanTree[i] && minDistances[i] < min) {
+                min = minDistances[i];
+                index = i;
+            }
+
+        return index;
     }
 }
