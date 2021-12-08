@@ -25,6 +25,7 @@ public class MSTTests {
             IGraph G = new Graph("./src/test/graph5.txt");
             IMST mst = new MST();
             assertThat(mst.shortestPath(G, 3, 2), is(4));
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
             assertThat(mst.shortestPath(G, 2, 3), is(12));});
     }
 
@@ -40,39 +41,69 @@ public class MSTTests {
     }
 
     @Test
-    @Score(2)
+    @Score(3)
     void customTestPath2() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/customGraph2.txt");
             IMST mst = new MST();
             assertThat(mst.shortestPath(G, 0, 1), is(4));
             assertThat(mst.shortestPath(G, 1, 0), is(2));
+            assertThat(mst.shortestPath(G, 2, 2), is(0));
             assertThat(mst.shortestPath(G, 2, 0), is(4));
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
             assertThat(mst.shortestPath(G, 1, 2), is(6));});
     }
 
     @Test
-    @Score(1)
+    @Score(2)
     void customTestPath3() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/customGraph3.txt");
             IMST mst = new MST();
             assertThat(mst.shortestPath(G, 3, 1), is(5));
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
+            assertThat(mst.shortestPath(G, 1, 1), is(0));
             assertThat(mst.shortestPath(G, 2, 1), is(4));});
     }
 
     @Test
-    @Score(3)
+    @Score(5)
     void customTestPath4() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/customGraph4.txt");
             IMST mst = new MST();
 //            assertThat(mst.shortestPath(G, 0, 3), is(3));
             assertThat(mst.shortestPath(G, 0, 3), is(2147483646));
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
             assertThat(mst.shortestPath(G, 3, 0), is(-1));
             assertThat(mst.shortestPath(G, 3, 1), is(-1));
+            assertThat(mst.shortestPath(G, 3, 3), is(0));
             assertThat(mst.shortestPath(G, 2, 1), is(-1));
+            assertThat(mst.shortestPath(G, 1, 1), is(0));
+            assertThat(mst.shortestPath(G, 2, 2), is(0));
             assertThat(mst.shortestPath(G, 0, 2), is(1));});
+
+    }
+
+    @Test
+    @Score(2)
+    void customTestPath5() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/customGraph5.txt");
+            IMST mst = new MST();
+            assertThat(mst.shortestPath(G, 0, 1), is(-1));
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
+            assertThat(mst.shortestPath(G, 1, 1), is(0));});
+    }
+
+    @Test
+    @Score(2)
+    void customTestPath6() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/noEdgeGraph.txt");
+            IMST mst = new MST();
+            assertThat(mst.shortestPath(G, 0, 0), is(0));
+            assertThat(mst.shortestPath(G, 1, 1), is(0));});
     }
 
     @Test
@@ -129,6 +160,36 @@ public class MSTTests {
             IGraph G = new Graph("./src/test/customGraph4.txt");
             IMST mst = new MST();
             assertThat(mst.findMST(G), is(3));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTestMST6() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/customGraph5.txt");
+            IMST mst = new MST();
+            assertThat(mst.findMST(G), is(-1));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTestMST7() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/emptyGraph.txt");
+            IMST mst = new MST();
+            assertThat(mst.findMST(G), is(-1));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTestMST8() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/noEdgeGraph.txt");
+            IMST mst = new MST();
+            assertThat(mst.findMST(G), is(-1));
         });
     }
 }
