@@ -63,7 +63,7 @@ public class SCCTests {
     }
 
     @Test
-    @Score(8)
+    @Score(10)
     void customTestPath3() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/graph4.txt");
@@ -77,6 +77,63 @@ public class SCCTests {
 
             assertThat(scc.path(G, 1, 0), is(true));
             assertThat(scc.path(G, 3, 4), is(true));
+
+            assertThat(scc.path(G, 0, 0), is(true));
+            assertThat(scc.path(G, 1, 1), is(true));
+            assertThat(scc.path(G, 3, 3), is(true));
+            assertThat(scc.path(G, 4, 4), is(true));
+            assertThat(scc.path(G, 2, 2), is(true));
+        });
+    }
+
+    @Test
+    @Score(5)
+    void customTestPath4() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/graph3.txt");
+            ISCC scc = new SCC();
+            assertThat(scc.path(G, 0, 1), is(true));
+            assertThat(scc.path(G, 3, 0), is(true));
+            assertThat(scc.path(G, 1, 0), is(true));
+            assertThat(scc.path(G, 4, 3), is(true));
+            assertThat(scc.path(G, 0, 0), is(true));
+        });
+    }
+
+    @Test
+    @Score(2)
+    void customTestPath5() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/customGraph5.txt");
+            ISCC scc = new SCC();
+            assertThat(scc.path(G, 0, 1), is(false));
+            assertThat(scc.path(G, 1, 0), is(false));
+
+            assertThat(scc.path(G, 1, 1), is(true));
+            assertThat(scc.path(G, 0, 0), is(true));
+        });
+    }
+
+    @Test
+    @Score(2)
+    void customTestPath6() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/noEdgeGraph.txt");
+            ISCC scc = new SCC();
+            assertThat(scc.path(G, 0, 1), is(false));
+            assertThat(scc.path(G, 1, 0), is(false));
+
+            assertThat(scc.path(G, 1, 1), is(false));
+            assertThat(scc.path(G, 0, 0), is(false));
+        });
+    }
+
+    @Test
+    @Score(1)
+    void customTestPath7() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G = new Graph("./src/test/emptyGraph.txt");
+            ISCC scc = new SCC();
         });
     }
 
@@ -95,16 +152,32 @@ public class SCCTests {
     }
 
     @Test
-    @Score(2)
+    @Score(3)
     void customTestConnectivity1() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G1 = new Graph("./src/test/graph1.txt");
             IGraph G5 = new Graph("./src/test/graph5.txt");
+            IGraph CG5 = new Graph("./src/test/customGraph5.txt");
 
             ISCC scc = new SCC();
 
             assertThat(scc.connectivity(G1), is(1));
             assertThat(scc.connectivity(G5), is(1));
+            assertThat(scc.connectivity(CG5), is(2));
+        });
+    }
+
+    @Test
+    @Score(3)
+    void customTestConnectivity2() {
+        assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
+            IGraph G1 = new Graph("./src/test/emptyGraph.txt");
+            IGraph G2 = new Graph("./src/test/noEdgeGraph.txt");
+
+            ISCC scc = new SCC();
+
+            assertThat(scc.connectivity(G1), is(0));
+            assertThat(scc.connectivity(G2), is(2));
         });
     }
 }
