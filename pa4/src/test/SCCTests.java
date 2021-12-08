@@ -32,7 +32,7 @@ public class SCCTests {
     }
 
     @Test
-    @Score(9)
+    @Score(13)
     void customTestPath1() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
             IGraph G = new Graph("./src/test/graph2.txt");
@@ -46,6 +46,11 @@ public class SCCTests {
             assertThat(scc.path(G, 1, 6), is(true));
             assertThat(scc.path(G, 2, 5), is(true));
             assertThat(scc.path(G, 6, 9), is(true));
+
+            assertThat(scc.path(G, 9, 0), is(false));
+            assertThat(scc.path(G, 9, 1), is(false));
+            assertThat(scc.path(G, 1, 0), is(false));
+            assertThat(scc.path(G, 0, 0), is(false));
         });
     }
 
@@ -129,11 +134,18 @@ public class SCCTests {
     }
 
     @Test
-    @Score(1)
+    @Score(3)
     void customTestPath7() {
         assertTimeoutPreemptively(Duration.ofSeconds(1), () -> {
-            IGraph G = new Graph("./src/test/emptyGraph.txt");
+            IGraph G = new Graph("./src/test/customGraph4.txt");
             ISCC scc = new SCC();
+            assertThat(scc.path(G, 1, 1), is(true));
+            assertThat(scc.path(G, 1, 2), is(true));
+            assertThat(scc.path(G, 0, 0), is(true));
+
+            assertThat(scc.path(G, 2, 1), is(false));
+            assertThat(scc.path(G, 2, 2), is(false));
+            assertThat(scc.path(G, 3, 3), is(false));
         });
     }
 
