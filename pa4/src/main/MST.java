@@ -42,6 +42,12 @@ public final class MST implements IMST {
          */
 
         matrix = G.matrix();
+
+        // If the matrix is empty, i.e. there are no nodes at all,
+        // then return -1.
+        if (matrix.length == 0)
+            return -1;
+
         numOfVertices = matrix.length;
 
         // Use Dijkstra's Algorithm to process the shortest path from
@@ -156,6 +162,12 @@ public final class MST implements IMST {
          *  If MST doesn't exist, return -1.
          */
         matrix = G.matrix();
+
+        // If the matrix is empty, i.e. there are no nodes at all,
+        // then return -1.
+        if (matrix.length == 0)
+            return -1;
+
         numOfVertices = matrix.length;
         undirectedEdges = new int[numOfVertices][numOfVertices];
         minDistances = new int[numOfVertices];
@@ -203,7 +215,10 @@ public final class MST implements IMST {
         }
 
         // Returns the calculated weight.
-        return weight;
+        if (weight != 0)
+            return weight;
+
+        return -1;
     }
 
     /**
@@ -222,7 +237,6 @@ public final class MST implements IMST {
 
         inMinSpanTree[0] = false;
         minDistances[0] = 0;
-        childTree[0] = 0;
 
         for (int count = 0; count < numOfVertices - 1; count++) {
             int minDistanceVertex = minDistanceIndex(inMinSpanTree);
