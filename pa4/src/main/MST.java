@@ -163,8 +163,11 @@ public final class MST implements IMST {
         // Create the undirected graph edges from the input graph.
         for (int s = 0; s < numOfVertices; s++) {
             for (int i = s + 1; i < numOfVertices; i++) {
-                int temp = addNumbers(matrix[s][i], matrix[i][s]);
 //                int temp = matrix[s][i] + matrix[i][s];
+
+                // Since Integer.MAX_VALUE can be one of the inputs,
+                // we should rather use the custom addNumbers() function.
+                int temp = addNumbers(matrix[s][i], matrix[i][s]);
 
                 undirectedEdges[s][i] = temp;
                 undirectedEdges[i][s] = temp;
