@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public final class SCC implements ISCC {
     int[][] weightMatrix, transposeMatrix;
     int numOfVertices;
-    Boolean[] visited, reached;
+    Boolean[] visited;
 
     public SCC() {
         /*
@@ -39,17 +39,14 @@ public final class SCC implements ISCC {
         numOfVertices = weightMatrix.length;
 
         visited = new Boolean[numOfVertices];
-        reached = new Boolean[numOfVertices];
-        for(int i = 0; i < numOfVertices; i++) {
+        for(int i = 0; i < numOfVertices; i++)
             visited[i] = false;
-            reached[i] = false;
-        }
 
         // Perform DFS on the node [u], and check if [v] is a valid reachable vertex.
-        depthFirstSearch(u, visited, reached, false);
+        depthFirstSearch(u, visited, false);
 
         // Returns true if [v] turns out to be a reachable vertex to vertex node [u]
-        return reached[v];
+        return visited[v];
     }
 
     /**
@@ -57,11 +54,9 @@ public final class SCC implements ISCC {
      * Can be used for transpose matrix as well, but MAKE SURE to have used the [setTranspose()] method first!!
      * @param source Vertex to visit
      * @param visited Array of Booleans to see if vertex has been visited through DFS
-     * @param reached Array of Booleans to see if vertex [u] has been reached explicitly through any path!
-     *                It will have a false value if [u] cannot reach itself EXPLICITLY!
      * @param forTranspose Boolean to know if DFS should be performed on the transpose matrix or not.
      */
-    void depthFirstSearch(int source, Boolean[] visited, Boolean[] reached, boolean forTranspose) {
+    void depthFirstSearch(int source, Boolean[] visited, boolean forTranspose) {
         visited[source] = true;
 
         int[] weights;
@@ -75,9 +70,7 @@ public final class SCC implements ISCC {
             // Check if weight of edge is not 0, since it means that it's a valid neighbor of [source]
             if (weights[dest] != 0) {
                 if (!visited[dest])
-                    depthFirstSearch(dest, visited, reached, forTranspose);
-
-                reached[dest] = visited[dest];
+                    depthFirstSearch(dest, visited, forTranspose);
             }
         }
     }
