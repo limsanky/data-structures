@@ -50,7 +50,8 @@ public class SCCTests {
             assertThat(scc.path(G, 9, 0), is(false));
             assertThat(scc.path(G, 9, 1), is(false));
             assertThat(scc.path(G, 1, 0), is(false));
-            assertThat(scc.path(G, 0, 0), is(false));
+//            assertThat(scc.path(G, 0, 0), is(false));
+            assertThat(scc.path(G, 0, 0), is(true));
         });
     }
 
@@ -128,8 +129,10 @@ public class SCCTests {
             assertThat(scc.path(G, 0, 1), is(false));
             assertThat(scc.path(G, 1, 0), is(false));
 
-            assertThat(scc.path(G, 1, 1), is(false));
-            assertThat(scc.path(G, 0, 0), is(false));
+//            assertThat(scc.path(G, 1, 1), is(false));
+//            assertThat(scc.path(G, 0, 0), is(false));
+            assertThat(scc.path(G, 1, 1), is(true));
+            assertThat(scc.path(G, 0, 0), is(true));
         });
     }
 
@@ -144,8 +147,10 @@ public class SCCTests {
             assertThat(scc.path(G, 0, 0), is(true));
 
             assertThat(scc.path(G, 2, 1), is(false));
-            assertThat(scc.path(G, 2, 2), is(false));
-            assertThat(scc.path(G, 3, 3), is(false));
+//            assertThat(scc.path(G, 2, 2), is(false));
+//            assertThat(scc.path(G, 3, 3), is(false));
+            assertThat(scc.path(G, 2, 2), is(true));
+            assertThat(scc.path(G, 3, 3), is(true));
         });
     }
 
